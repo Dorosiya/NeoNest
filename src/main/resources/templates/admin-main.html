@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>관리자 메인</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/admin-products-register-form.css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">관리자 패널</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/products">상품 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/orders">주문 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/users">사용자 관리</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1>관리자 메인 페이지</h1>
+    <p>여기에서 상품을 관리하고 주문을 처리할 수 있습니다.</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">상품 등록</h5>
+                    <p class="card-text">새로운 상품을 등록합니다.</p>
+                    <a href="/admin/products/new" class="btn btn-primary">상품 등록</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">상품 관리</h5>
+                    <p class="card-text">기존 상품을 관리합니다.</p>
+                    <a href="/admin/products" class="btn btn-primary">상품 관리</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">주문 관리</h5>
+                    <p class="card-text">고객의 주문을 관리합니다.</p>
+                    <a href="/admin/orders" class="btn btn-primary">주문 관리</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

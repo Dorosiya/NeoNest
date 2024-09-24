@@ -1,0 +1,68 @@
+/* admin-order-detail.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.container {
+    margin: 50px auto;
+    max-width: 1000px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h4 {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+/* 주문 상태 버튼 컨테이너 */
+#orderStatusContainer {
+    display: flex;
+    gap: 10px; /* 버튼 간의 간격을 추가 */
+    margin-top: 20px; /* 위쪽 여백 추가 */
+}
+
+/* 주문 상태 버튼 */
+#orderStatusContainer .btn {
+    flex: 1; /* 버튼이 고르게 확장되도록 */
+    padding: 10px; /* 버튼 크기 확장 */
+}
+
+/* 기본 버튼 스타일 */
+.btn-primary {
+    margin-top: 20px;
+}
+
+/* 주문 상태 버튼 색상 조정 */
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-success:hover, .btn-danger:hover {
+    opacity: 0.9; /* 버튼 호버 시 살짝 어둡게 */
+}
+

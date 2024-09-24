@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8; /* 메인 페이지와 동일한 배경색 */
+}
+
+.utility-nav {
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: right;
+}
+
+.utility-nav a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.search-bar h1 {
+    margin: 20px 0;
+}
+
+.search-bar a.home-link {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+}
+
+.navigation {
+    width: 100%;
+}
+
+.navigation .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.order-details {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.order-details h4 {
+    margin-bottom: 15px;
+}
+
+.order-details p {
+    margin: 5px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/payment-success.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/payment-success.js" defer></script> <!-- JS 파일 분리 및 연결 -->
+</head>
+<body>
+
+<!-- 네비게이션 바 -->
+<nav class="utility-nav">
+    <a href="/signup">회원가입</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1><a href="/main" class="home-link">NeoNest</a></h1> <!-- 클릭 시 메인 페이지로 이동 -->
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/products?category=best">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=discount">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=new">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=keyboard">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5 text-center">
+    <h1 class="display-5">결제가 성공적으로 완료되었습니다!</h1>
+    <p class="lead">고객님의 주문이 정상적으로 접수되었습니다. 빠른 시일 내에 배송해 드리겠습니다.</p>
+
+    <!-- 주문 상세 정보 -->
+    <div class="order-details mt-4">
+        <h4>주문 정보</h4>
+        <p>주문 번호: <span id="order-number">123456789</span></p>
+        <p>결제 금액: <span id="payment-amount">15,000원</span></p>
+        <p>배송지: <span id="delivery-address">서울특별시 강남구 테헤란로 123</span></p>
+        <p>주문 날짜: <span id="order-date">2024-09-08 12:34:56</span></p>
+        <p>배송 상태: <span id="delivery-status">준비 중</span></p>
+        <p>결제 수단: <span id="payment-method">카드</span></p>
+        <p>주문 상품: <span id="product-details">상품명 외 2개</span></p>
+    </div>
+
+    <!-- 홈으로 이동 버튼 -->
+    <button class="btn btn-primary mt-5" onclick="location.href='/main'">홈으로 이동</button>
+    <button class="btn btn-secondary mt-5" onclick="location.href='/mypage/orders'">주문 내역 확인</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.7/swiper-bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

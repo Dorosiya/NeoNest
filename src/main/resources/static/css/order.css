@@ -28,6 +28,11 @@ body {
     margin: 20px 0;
 }
 
+.search-bar a.home-link {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+}
+
 .navigation {
     width: 100%;
 }

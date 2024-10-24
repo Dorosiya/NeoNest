@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+<!-- 유틸리티 네비게이션 바 -->
+<nav class="utility-nav">
+    <a href="/signup">회원가입</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<!-- 메인 네비게이션 바 -->
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1><a href="/main" class="home-link">NeoNest</a></h1>
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/best">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/discount">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/new">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/keyboard">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <!-- 단계 표시 -->
+    <div class="step-indicator">
+        <span class="step active">01 장바구니</span>
+        <span class="arrow">→</span>
+        <span class="step">02 정보입력</span>
+        <span class="arrow">→</span>
+        <span class="step">03 결제완료</span>
+        <a href="/products" class="btn btn-outline-primary continue-shopping">계속 쇼핑하기</a>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- 상품 리스트 -->
+
+            <!-- 상품 리스트 끝 -->
+        </div>
+
+        <div class="col-md-4">
+            <!-- 주문 요약 -->
+            <div class="order-summary">
+                <h4>주문 요약</h4>
+                <p>총 상품금액: <span id="total-amount">0원</span></p>
+                <p>배송비: <span id="shipping-fee">0원</span>
+                <p>합계: <span id="final-total">0원</span></p>
+                <button id="submit-order" class="btn btn-dark btn-block">구매하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 주문 수정 모달 -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">주문 수정</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><img id="modal-image" src="" alt="상품 이미지" class="img-fluid"></p>
+                <p id="modal-item-name"></p>
+                <p>현재 수량: <span id="current-quantity"></span></p>
+                <div class="form-group">
+                    <label for="modal-quantity">수정할 수량</label>
+                    <input type="number" id="modal-quantity" class="form-control" min="1" value="1">
+                </div>
+                <p>총 가격: <span id="modal-total-price">0원</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                <button type="button" id="saveChanges" class="btn btn-primary">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/cart.js"></script>
+</body>
+</html>

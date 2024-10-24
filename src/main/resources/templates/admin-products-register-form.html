@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>상품 등록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/admin-products-register-form.css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="https://localhost:8080/admin/main">관리자 패널</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/products">상품 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/orders">주문 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/users">사용자 관리</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h2>상품 등록</h2>
+    <form id="productForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="image">상품 이미지:</label>
+            <input type="file" id="image" name="image" class="form-control-file" required>
+            <img id="imagePreview" src="#" alt="미리보기" style="display: none; max-width: 200px; margin-top: 10px;"/>
+        </div>
+        <div class="form-group">
+            <label for="name">상품명:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="description">설명:</label>
+            <textarea id="description" name="description" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">가격:</label>
+            <input type="number" id="price" name="price" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="stockQuantity">재고수량:</label>
+            <input type="number" id="stockQuantity" name="stockQuantity" class="form-control" required>
+        </div>
+        <!-- 카테고리 선택 추가 -->
+        <div class="form-group">
+            <label for="category">카테고리:</label>
+            <select id="category" name="category" class="form-control" required>
+                <option value="mouse">마우스</option>
+                <option value="keyboard">키보드</option>
+                <option value="headset">헤드셋</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">저장</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/admin/main'">취소</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/admin-products-register-form.js"></script>
+</body>
+</html>

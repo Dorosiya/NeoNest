@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 정보 수정</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>내 정보</h2>
+  <div class="card">
+    <div class="card-body">
+      <p><strong>아이디:</strong> <span id="member-memberName">홍길동</span></p>
+      <p><strong>이름:</strong> <span id="member-name">홍길동</span></p>
+      <p><strong>이메일:</strong> <span id="member-email">hong@example.com</span></p>
+      <p><strong>전화번호:</strong> <span id="member-phone">010-1234-5678</span></p>
+      <p><strong>주소:</strong> <span id="member-address">서울특별시 강남구 테헤란로</span></p>
+      <button class="btn btn-primary" id="edit-button">수정하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 수정 폼 -->
+<div class="container mt-5" id="edit-form" style="display: none;">
+  <h2>정보 수정</h2>
+  <form id="user-form">
+    <div class="form-group">
+      <label for="member-memberName">닉네임</label>
+      <input type="text" class="form-control" id="memberName" value="gildong">
+    </div>
+    <div class="form-group">
+      <label for="name">이름</label>
+      <input type="text" class="form-control" id="name" value="홍길동">
+    </div>
+    <div class="form-group">
+      <label for="email">이메일</label>
+      <input type="email" class="form-control" id="email" value="hong@example.com">
+    </div>
+    <div class="form-group">
+      <label for="phone">전화번호</label>
+      <input type="tel" class="form-control" id="phone" value="010-1234-5678">
+    </div>
+    <div class="form-group">
+      <label for="address">주소</label>
+      <div class="form-row">
+        <div class="col-4">
+          <input type="text" class="form-control" id="postcode" placeholder="우편번호">
+        </div>
+        <div class="col">
+          <input type="button" class="btn btn-secondary" onclick="DaumPostcode()" value="주소 검색">
+        </div>
+      </div>
+      <input type="text" class="form-control mt-2" id="address" placeholder="주소">
+      <input type="text" class="form-control mt-2" id="detailAddress" placeholder="상세주소">
+      <input type="text" class="form-control mt-2" id="extraAddress" placeholder="참고항목">
+    </div>
+    <button type="button" class="btn btn-success" id="save-button">저장하기</button>
+    <button type="button" class="btn btn-secondary" id="cancel-button">취소</button>
+  </form>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/profile.js"></script>
+</body>
+</html>

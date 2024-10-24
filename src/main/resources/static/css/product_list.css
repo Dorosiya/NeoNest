@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.utility-nav {
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: right;
+}
+
+.utility-nav a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.search-bar h1 {
+    margin: 20px 0;
+}
+
+.search-bar a.home-link {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+}
+
+.navigation {
+    width: 100%;
+}
+
+.navigation .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* 추가된 스타일: 정렬 버튼과 구분자 */
+.sort-buttons {
+    margin: 20px 0;
+}
+
+.sort-button {
+    color: #6c757d;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.sort-button:hover {
+    color: #343a40;
+}
+
+.sort-button.active {
+    color: #343a40;
+    font-weight: bold;
+}
+
+.separator {
+    margin: 0 10px;
+    color: #6c757d;
+}
+
+.product-list {
+    margin: 20px 0;
+}
+
+.product-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    /* 한 줄에 3개씩 배치 */
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.product-item img {
+    max-width: 100%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.product-item h5 {
+    margin-top: 10px;
+}
+
+.product-item .price {
+    color: #d9534f;
+}

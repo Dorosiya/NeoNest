@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 상세 페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/product-detail.css">
+</head>
+<body>
+
+<!-- 유틸리티 네비게이션 바 -->
+<nav class="utility-nav">
+    <a id="signup-link" href="/signup">회원가입</a>
+    <a id="logout-link" href="/logout" style="display:none;">로그아웃</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<!-- 메인 네비게이션 바 -->
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1>NeoNest</h1>
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/best">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/discount">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/new">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=keyboard">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img id="product-image" src="" alt="상품 이미지" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h1 id="product-name">제품명</h1>
+            <h2 id="product-price" class="text-danger">판매가격: 0원</h2>
+            <p id="product-original-price" class="text-muted"><s>실제가격: 0원</s></p>
+            <p id="product-rating">평점: ★5 리뷰 0</p>
+
+            <div class="form-group">
+                <label for="quantity">수량</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(-1)">-</button>
+                    </div>
+                    <input type="number" id="quantity" name="quantity" class="form-control text-center col-4" value="1" min="1">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <h3>총 상품가격: <span id="total-price">0</span>원</h3>
+
+            <button id="add-to-cart" class="btn btn-dark btn-lg mr-2">장바구니</button>
+            <button id="buy-now" class="btn btn-primary btn-lg mr-2">구매하기</button>
+            <button id="wishlist-button" class="btn btn-outline-warning btn-lg">찜하기</button>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>상품 설명</h3>
+            <p id="product-description"></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/product-detail.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

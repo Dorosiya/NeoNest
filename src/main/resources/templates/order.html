@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/order.css">
+</head>
+<body>
+
+<!-- 유틸리티 네비게이션 바 -->
+<nav class="utility-nav">
+    <a href="/signup">회원가입</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<!-- 메인 네비게이션 바 -->
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1><a href="/main" class="home-link">NeoNest</a></h1>
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/best">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/discount">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/new">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/keyboard">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <!-- 주문 페이지 단계 표시 -->
+    <div class="step-indicator">
+        <span class="step">01 장바구니</span>
+        <span class="arrow">→</span>
+        <span class="step active">02 정보입력</span>
+        <span class="arrow">→</span>
+        <span class="step">03 결제완료</span>
+    </div>
+
+    <!-- 배송지 정보 -->
+    <div class="shipping-info">
+        <h4>배송지 정보</h4>
+        <div class="form-group">
+            <label for="userName">이름</label>
+            <input type="text" class="form-control" id="userName" placeholder="이름을 입력하세요" required>
+        </div>
+        <div class="form-group">
+            <label for="userPhone">연락처</label>
+            <input type="tel" class="form-control" id="userPhone" placeholder="연락처를 입력하세요" required>
+        </div>
+        <div class="form-group">
+            <label for="postcode">우편번호</label>
+            <div class="form-row">
+                <div class="col-4">
+                    <input type="text" class="form-control" id="postcode" placeholder="우편번호" readonly>
+                </div>
+                <div class="col">
+                    <input type="button" class="btn btn-secondary" onclick="DaumPostcode()" value="주소 검색">
+                </div>
+            </div>
+            <input type="text" class="form-control mt-2" id="address" placeholder="주소" readonly>
+            <input type="text" class="form-control mt-2" id="detailAddress" placeholder="상세주소">
+            <input type="text" class="form-control mt-2" id="extraAddress" placeholder="참고항목" readonly>
+        </div>
+    </div>
+
+    <!-- 배송 요청 사항 -->
+    <div class="form-group mt-4">
+        <label for="delivery-request">배송 요청 사항</label>
+        <textarea class="form-control" id="delivery-request" rows="3" placeholder="요청 사항을 입력하세요."></textarea>
+    </div>
+
+    <!-- 주문 상품 정보 -->
+    <div class="order-items mt-5">
+        <h4>주문 상품</h4>
+        <div id="order-list" class="order-list">
+            <!-- 주문 상품 리스트가 여기에 추가됩니다 -->
+        </div>
+    </div>
+
+    <!-- 총 결제 금액 -->
+    <div class="order-summary mt-5">
+        <h4>총 결제 금액: <span id="total-amount">0원</span></h4>
+        <button class="btn btn-primary btn-block">결제하기</button>
+    </div>
+</div>
+
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/order.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</body>
+</html>

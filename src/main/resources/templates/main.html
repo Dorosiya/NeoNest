@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NeoNest</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+</head>
+<body>
+
+<nav class="utility-nav">
+    <a id="signup-link" href="/signup">회원가입</a>
+    <a id="logout-link" href="/logout" style="display:none;">로그아웃</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1><a href="/main" class="home-link">NeoNest</a></h1>
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/best">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/discount">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/new">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/keyboard">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="/images/0.ShadowGlide 3000.webp" alt="Product 1"></div>
+        <div class="swiper-slide"><img src="/images/2.ErgoWave 900.webp" alt="Product 2"></div>
+        <div class="swiper-slide"><img src="/images/3.HyperTech Pro.webp" alt="Product 3"></div>
+        <div class="swiper-slide"><img src="/images/9.UltraComfort 700.webp" alt="Product 4"></div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.7/swiper-bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

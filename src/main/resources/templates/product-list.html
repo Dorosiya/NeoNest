@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NeoNest - 상품 리스트</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/product_list.css"/>
+</head>
+<body>
+
+<nav class="utility-nav">
+    <a id="signup-link" href="/signup">회원가입</a>
+    <a id="logout-link" href="/logout" style="display:none;">로그아웃</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1><a href="/main" class="home-link">NeoNest</a></h1> <!-- 클릭 시 메인 페이지로 이동 -->
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="#" onclick="fetchProducts('best')">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="fetchProducts('discount')">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="fetchProducts('new')">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="fetchProducts('mouse', 'new')">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="fetchProducts('keyboard')">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="sort-buttons text-center">
+        <button class="btn btn-link sort-button" onclick="fetchProducts('mouse', 'new')">최신등록순</button>
+        <span class="separator">|</span>
+        <button class="btn btn-link sort-button" onclick="fetchProducts('mouse', 'price_asc')">낮은가격순</button>
+        <span class="separator">|</span>
+        <button class="btn btn-link sort-button" onclick="fetchProducts('mouse', 'price_desc')">높은가격순</button>
+    </div>
+    <div id="product-list" class="row product-list"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/product-list.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.utility-nav {
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: right;
+}
+
+.utility-nav a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.search-bar h1 {
+    margin: 20px 0;
+}
+
+.search-bar a.home-link {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+}
+
+.navigation {
+    width: 100%;
+}
+
+.navigation .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.step-indicator .step {
+    font-size: 18px;
+    color: #777;
+    margin-right: 10px;
+}
+
+.step-indicator .step.active {
+    color: #000;
+    font-weight: bold;
+}
+
+.step-indicator .arrow {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #777;
+}
+
+.shipping-info, .order-list, .order-summary {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    margin-bottom: 20px;
+}
+
+.order-list .order-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-list .order-item:last-child {
+    border-bottom: none;
+}
+
+.order-summary h4 {
+    margin-bottom: 20px;
+}
+
+.btn-block {
+    width: 100%;
+}

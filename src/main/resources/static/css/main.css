@@ -1,0 +1,83 @@
+/* main.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.utility-nav {
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: right;
+}
+
+.utility-nav a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.search-bar h1 {
+    margin: 20px 0;
+}
+
+.search-bar a.home-link {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+}
+
+.navigation {
+    width: 100%;
+}
+
+.navigation .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.swiper-container {
+    width: 100%; /* 스와이퍼가 전체 너비를 차지하도록 설정 */
+    max-width: 1200px; /* 스와이퍼의 최대 너비를 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    height: 400px;
+    margin-top: 20px;
+    overflow: hidden; /* 스와이퍼 밖으로 나가는 요소 숨기기 */
+}
+
+.swiper-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.swiper-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+#logout-link {
+    background: none;
+    border: none;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+}

@@ -1,0 +1,54 @@
+/* profile.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 800px;
+    margin-top: 50px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+.card-body p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+#edit-form {
+    margin-top: 50px;
+}
+
+#edit-form .form-group {
+    margin-bottom: 20px;
+}
+
+#edit-form label {
+    font-weight: bold;
+}
+
+.form-row .col .btn {
+    margin: 0;
+    padding: 8px 16px;
+    vertical-align: middle;
+}
+
+.input-group .form-control {
+    flex: 1 1 auto;
+}
+
+.input-group-append .btn {
+    border-radius: 0;
+}

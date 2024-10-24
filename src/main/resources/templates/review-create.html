@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>리뷰 작성</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/review-create.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/js/review-create.js" defer></script>
+</head>
+<body>
+
+<!-- 유틸리티 네비게이션 바 -->
+<nav class="utility-nav">
+  <a href="/signup">회원가입</a>
+  <a id="login-link" href="/login">로그인</a>
+  <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+  <a href="/cart">장바구니</a>
+  <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<div id="wrapper">
+  <div class="search-bar col-12">
+    <h1><a href="/main" class="home-link">NeoNest</a></h1> <!-- 메인 페이지로 링크 -->
+  </div>
+
+  <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-collapse">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="/best">베스트</a></li>
+        <li class="nav-item"><a class="nav-link" href="/discount">할인상품</a></li>
+        <li class="nav-item"><a class="nav-link" href="/new">신제품</a></li>
+        <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+        <li class="nav-item"><a class="nav-link" href="/keyboard">키보드</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="container mt-5">
+  <h2 class="mb-4">리뷰 작성</h2>
+  <form id="reviewForm" class="review-form">
+    <div class="form-group text-center">
+      <img id="productImage" src="" alt="상품 이미지" class="img-fluid mb-3" style="max-width: 200px; height: auto;">
+    </div>
+    <div class="form-group">
+      <label for="productName">상품명</label>
+      <input type="text" id="productName" class="form-control" readonly>
+    </div>
+    <div class="form-group">
+      <label for="rating">평점</label>
+      <select id="rating" class="form-control">
+        <option value="1">1점</option>
+        <option value="2">2점</option>
+        <option value="3">3점</option>
+        <option value="4">4점</option>
+        <option value="5">5점</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comment">리뷰 내용</label>
+      <textarea id="comment" class="form-control" rows="5"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">리뷰 작성</button>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

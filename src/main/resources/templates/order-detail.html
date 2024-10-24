@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 상세 정보</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/order-detail.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/order-detail.js" defer></script> <!-- JS 파일 분리 및 연결 -->
+</head>
+<body>
+
+<!-- 유틸리티 네비게이션 바 -->
+<nav class="utility-nav">
+    <a href="/signup">회원가입</a>
+    <a id="login-link" href="/login">로그인</a>
+    <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+    <a href="/cart">장바구니</a>
+    <a href="/mypage/orders">주문확인</a>
+</nav>
+
+<div id="wrapper">
+    <div class="search-bar col-12">
+        <h1><a href="/main" class="home-link">NeoNest</a></h1> <!-- 메인 페이지로 링크 -->
+    </div>
+
+    <nav class="navigation navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/best">베스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/discount">할인상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/new">신제품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products?category=mouse">마우스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/keyboard">키보드</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <h2 class="mb-4">주문 상세 정보</h2>
+    <div id="orderDetail" class="order-detail mb-4">
+        <!-- 주문 정보 -->
+        <h4>주문 정보</h4>
+        <ul id="orderInfo" class="list-group mb-3">
+            <!-- 주문 정보가 여기에 동적으로 추가됩니다 -->
+        </ul>
+        <!-- 상품 정보 -->
+        <h4>상품 정보</h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>상품 이미지</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>합계</th>
+                <th>리뷰 작성</th>
+            </tr>
+            </thead>
+            <tbody id="productList">
+            <!-- 상품 정보가 여기에 동적으로 추가됩니다 -->
+            </tbody>
+        </table>
+        <!-- 배송 정보 -->
+        <h4>배송 정보</h4>
+        <ul id="deliveryInfo" class="list-group mb-3">
+            <!-- 배송 정보가 여기에 동적으로 추가됩니다 -->
+        </ul>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

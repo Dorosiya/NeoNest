@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mypage.css">
+</head>
+<body>
+
+<nav class="utility-nav">
+    <div class="container">
+        <a id="signup-link" href="/signup">회원가입</a>
+        <a id="logout-link" href="/logout" style="display:none;">로그아웃</a>
+        <a id="login-link" href="/login">로그인</a>
+        <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
+        <a href="/cart">장바구니</a>
+        <a href="/mypage/orders">주문확인</a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- 사이드바 -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <h5 class="sidebar-heading mt-3">마이페이지</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#profileMenu"
+                           aria-expanded="false" aria-controls="profileMenu">프로필 관리</a>
+                        <div class="collapse" id="profileMenu">
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="/mypage/profile">내 정보</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#orderMenu"
+                           aria-expanded="false" aria-controls="orderMenu">주문 관리</a>
+                        <div class="collapse" id="orderMenu">
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="/mypage/orders">주문 내역 조회</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#wishlistMenu"
+                           aria-expanded="false" aria-controls="wishlistMenu">위시리스트</a>
+                        <div class="collapse" id="wishlistMenu">
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="/mypage/wishlist">찜한 상품 목록 보기</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#reviewMenu"
+                           aria-expanded="false" aria-controls="reviewMenu">리뷰 관리</a>
+                        <div class="collapse" id="reviewMenu">
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="/mypage/reviews">작성한 리뷰 보기</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/mypage/review/new">리뷰 작성하기</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/main">메인 페이지로 돌아가기</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 메인 컨텐츠 -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2 class="h2">환영합니다!</h2>
+            </div>
+            <div>
+                <p>여기는 마이페이지입니다. 사이드 메뉴를 통해 원하는 정보를 관리할 수 있습니다.</p>
+            </div>
+
+            <!-- 아이콘과 정보 표시 -->
+            <div class="summary-container">
+                <div class="summary-item">
+                    <div class="icon">
+                        <img src="/images/order-icon.png" alt="주문배송 아이콘">
+                    </div>
+                    <div class="info">
+                        <p>주문배송</p>
+                        <p class="count">0</p>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">
+                        <img src="/images/cart-icon.png" alt="장바구니 아이콘">
+                    </div>
+                    <div class="info">
+                        <p>장바구니</p>
+                        <p class="count">8</p>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">
+                        <img src="/images/review-icon.png" alt="리뷰 작성 아이콘">
+                    </div>
+                    <div class="info">
+                        <p>리뷰 작성</p>
+                        <p class="count">960</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/mypage.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

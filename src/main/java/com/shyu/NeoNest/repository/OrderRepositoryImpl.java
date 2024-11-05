@@ -5,11 +5,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.StringExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shyu.NeoNest.domain.Order;
-import com.shyu.NeoNest.domain.Product;
-import com.shyu.NeoNest.domain.QReview;
 import com.shyu.NeoNest.dto.request.AdminOrderFilterDto;
 import com.shyu.NeoNest.dto.response.*;
 import com.shyu.NeoNest.enums.DeliveryStatus;
@@ -346,7 +343,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public ReviewInfoDto findReviewInfo(String orderUid, Long productId, Long memberId) {
+    public OrderProductReviewInfoDto findOrderProductReviewInfo(String orderUid, Long productId, Long memberId) {
         Tuple result = queryFactory
                 .select(
                         product.productId,
@@ -376,7 +373,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
         boolean isReviewed = result.get(review.reviewId) != null;
 
         // 리뷰가 있는 경우와 없는 경우에 따라 DTO에 넣을 데이터를 다르게 설정
-        return new ReviewInfoDto(
+        return new OrderProductReviewInfoDto(
                 isReviewed,
                 result.get(product.productId),
                 result.get(product.name),

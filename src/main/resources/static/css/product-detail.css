@@ -69,3 +69,52 @@ body {
     line-height: 1.6;
     margin-top: 20px;
 }
+
+#review-section {
+    margin-top: 40px;
+    border-top: 2px solid #333; /* 섹션을 더 구분되게 만듭니다. */
+    padding-top: 20px;
+}
+
+.review-item {
+    border-bottom: 1px solid #d3d3d3;
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #555;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.review-rating {
+    color: #ffcc00;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.review-content {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#average-rating {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    color: #ff9900;
+}
+
+.review-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}

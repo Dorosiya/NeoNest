@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class CartService {
@@ -25,8 +24,9 @@ public class CartService {
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
 
-    public void insertCartItem(CartCreateDto dto) {
-        Member findMember = memberRepository.findById(dto.getMemberId())
+    @Transactional
+    public void insertCartItem(Long memberId, CartCreateDto dto) {
+        Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾지 못했습니다."));
         Product findProduct = productRepository.findById(dto.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("상품을 찾지 못했습니다."));
@@ -41,10 +41,12 @@ public class CartService {
         cartRepository.save(buildCart);
     }
 
+    @Transactional(readOnly = true)
     public List<CartsDto> getCart(Long memberId) {
         return cartRepository.getCartsDto(memberId);
     }
 
+    @Transactional
     public void updateCart(CartUpdateDto dto) {
         Long memberId = dto.getMemberId();
         Long cartId = dto.getCartId();
@@ -56,6 +58,7 @@ public class CartService {
         cartRepository.save(getCart);
     }
 
+    @Transactional
     public void deleteCartItem(Long memberId, Long cartId) {
         cartRepository.deleteCartById(memberId, cartId);
     }

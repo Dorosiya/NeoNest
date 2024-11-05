@@ -4,17 +4,22 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shyu.NeoNest.domain.Product;
+import com.shyu.NeoNest.domain.QMember;
+import com.shyu.NeoNest.domain.QReview;
 import com.shyu.NeoNest.dto.response.AdminProductListDto;
 import com.shyu.NeoNest.dto.response.EditProductDto;
 import com.shyu.NeoNest.dto.response.ProductDto;
+import com.shyu.NeoNest.dto.response.ProductReviewInfoDto;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 import java.util.Optional;
 
 import static com.shyu.NeoNest.domain.QCategory.category;
+import static com.shyu.NeoNest.domain.QMember.member;
 import static com.shyu.NeoNest.domain.QProduct.product;
 import static com.shyu.NeoNest.domain.QProductCategory.productCategory;
+import static com.shyu.NeoNest.domain.QReview.review;
 
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
@@ -138,4 +143,5 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
         return Optional.ofNullable(editProductDto);
     }
+
 }

@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -34,6 +33,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
 
     // 상품 등록
+    @Transactional
     public void saveProduct(MultipartFile image, ProductRegisterDto dto) throws IOException {
         Category findCategory = categoryRepository.findByName(dto.getCategory())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
@@ -58,6 +58,7 @@ public class ProductService {
     }
 
     // 상품 수정
+    @Transactional
     public void editProduct(Long productId, MultipartFile image, ProductEditDto dto) throws IOException {
         Category findCategory = categoryRepository.findByName(dto.getCategory())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
@@ -101,27 +102,32 @@ public class ProductService {
         productCategoryRepository.save(productCategory);
     }
 
+    @Transactional(readOnly = true)
     public ProductDto getProduct(Long productId) {
         return productRepository.getByProductId(productId)
                 .orElseThrow(() -> new RuntimeException("해당 상품이 존재하지 않습니다."));
     }
 
     // 상품 조회(sort 조건 포함)
+    @Transactional(readOnly = true)
     public List<ProductDto> getProducts(String categoryCond, String sortCond) {
         return productRepository.searchByCond(categoryCond, sortCond);
     }
 
     // 상품 조회 시 이미지가 있다면 가져오기
+    @Transactional(readOnly = true)
     public Resource getProductImage(String filename) throws MalformedURLException {
         return new UrlResource("file:" + fileService.getFullPath(filename));
     }
 
     // 상품 관리 페이지 상품 조회
+    @Transactional(readOnly = true)
     public List<AdminProductListDto> getAdminProductList() {
         return productRepository.getAdminProductListDto();
     }
 
     // 상품 관리 페이지 상품 수정 시 기존 데이터 가져오기
+    @Transactional(readOnly = true)
     public EditProductDto getAdminProduct(Long productId) {
         return productRepository.getEditProductById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 상품 ID입니다."));

@@ -1,16 +1,14 @@
-/* product-detail.js */
-
 document.addEventListener('DOMContentLoaded', function () {
     const path = window.location.pathname;
     const parts = path.split('/');
     const productId = parts[parts.length - 1];
 
-    const productInfoContainer = document.getElementById('product-info');
     const wishlistButton = document.getElementById('wishlist-button');
     const cartButton = document.getElementById('add-to-cart');
     const quantityInput = document.getElementById('quantity');
 
     fetchProductDetails(productId);
+    fetchProductReviews(productId);
 
     function updateTotalPrice() {
         const price = parseInt(document.getElementById('product-price').dataset.price) || 0;
@@ -41,13 +39,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('product-price').dataset.price = product.price || 0;
                 document.getElementById('product-original-price').innerText = product.originalPrice ? `실제가격: ${product.originalPrice.toLocaleString()}원` : '원가 정보 없음';
                 document.getElementById('product-description').innerText = product.description || '설명 정보 없음';
-                document.getElementById('product-rating').innerText = `평점: ★${product.rating || 'N/A'} 리뷰 ${product.reviews || 'N/A'}`;
 
                 // 찜하기 버튼 초기 상태 설정
                 checkWishlistStatus();
             })
             .catch(error => {
                 console.error('상품 정보를 불러오는 중 오류 발생:', error);
+            });
+    }
+
+    // 리뷰 정보를 서버에서 가져오는 함수
+    function fetchProductReviews(productId) {
+        axios.get(`/api/products/${productId}/reviews`)
+            .then(response => {
+                const { reviews, ratingCount, averageRating } = response.data;
+
+                // 리뷰 정보가 배열이 아니면 빈 배열로 초기화
+                const reviewsList = Array.isArray(reviews) ? reviews : [];
+
+                // 평균 평점과 리뷰 수 업데이트 (두 개의 HTML 요소에 대해)
+                document.getElementById('product-average-rating').innerText = `평균 평점: ★${averageRating || 'N/A'} (리뷰 ${ratingCount || 0}건)`;
+                document.getElementById('average-rating').innerText = `평균 평점: ★${averageRating || 'N/A'} (리뷰 ${ratingCount || 0}건)`;
+
+                const reviewsContainer = document.getElementById('reviews-container');
+                reviewsContainer.innerHTML = '';
+
+                reviewsList.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review-item');
+                    reviewElement.innerHTML = `
+                        <p class="review-author"><strong>${review.reviewerName}</strong></p>
+                        <p>평점: ★${review.rating}</p>
+                        <p class="review-content">${review.comment}</p>
+                        <p class="review-date">작성일: ${review.reviewDate}</p>
+                    `;
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            })
+            .catch(error => {
+                console.error('리뷰 정보를 불러오는 중 오류 발생:', error);
             });
     }
 
@@ -103,10 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const quantity = parseInt(quantityInput.value) || 1;
         const price = parseInt(document.getElementById('product-price').dataset.price) || 0;
 
-        const memberId = getMemberIdFromToken();
+        /*const memberId = getMemberIdFromToken();*/
 
         const cartData = {
-            memberId: memberId,
+            /*memberId: memberId,*/
             productId: parseInt(productId),
             price: price,
             quantity: quantity
@@ -137,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.updateQuantity = updateQuantity;
 
     // 쿠키에서 JWT를 가져오는 함수
-    function getJwtTokenFromCookie() {
+    /*function getJwtTokenFromCookie() {
         const name = "access=";
         const decodedCookie = decodeURIComponent(document.cookie);
         const ca = decodedCookie.split(';');
@@ -151,19 +181,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         return "";
-    }
+    }*/
 
     // JWT에서 memberId를 추출하는 함수
-    function getMemberIdFromToken() {
+    /*function getMemberIdFromToken() {
         const token = getJwtTokenFromCookie();
         if (!token) return null;
 
         const payload = parseJwt(token);
         return payload.memberId;
-    }
+    }*/
 
     // JWT를 파싱하는 함수
-    function parseJwt(token) {
+    /*function parseJwt(token) {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
@@ -171,5 +201,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }).join(''));
 
         return JSON.parse(jsonPayload);
-    }
+    }*/
 });

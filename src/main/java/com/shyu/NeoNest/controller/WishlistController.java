@@ -21,6 +21,7 @@ public class WishlistController {
 
     private final WishlistService wishlistService;
 
+    // 상품을 찜 목록에 추가
     @PostMapping("/wishlist")
     public ResponseEntity<Map<String, Object>> addWishlist(@RequestBody WishlistAddDto dto,
                                                            @AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -30,6 +31,7 @@ public class WishlistController {
         return new ResponseEntity<>(Map.of("success", true, "message", "찜 목록 추가 성공"), HttpStatus.OK);
     }
 
+    // 상품을 찜 목록에 있는지 확인(가져오기)
     @GetMapping("/wishlist/{productId}")
     public ResponseEntity<InWishlistDto> checkWishlist(@PathVariable Long productId,
                                                        @AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -40,6 +42,7 @@ public class WishlistController {
         return new ResponseEntity<>(wishlist, HttpStatus.OK);
     }
 
+    // 상품을 찜 목록에서 제거
     @DeleteMapping("/wishlist/{productId}")
     public ResponseEntity<Map<String, Object>> deleteWishlist(@PathVariable Long productId,
                                                               @AuthenticationPrincipal CustomUserDetails userDetails) {

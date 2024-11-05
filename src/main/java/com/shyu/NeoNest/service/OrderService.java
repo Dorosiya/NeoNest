@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class OrderService {
@@ -33,7 +32,7 @@ public class OrderService {
     private final DeliveryRepository deliveryRepository;
     private final PaymentRepository paymentRepository;
 
-
+    @Transactional
     public String createOrder(OrderCreateDto dto) {
 
         if (dto.getOrderItems().isEmpty()) {
@@ -111,18 +110,21 @@ public class OrderService {
     }
 
     // orderUid로 주문 페이지 진입 시 오더 조회
+    @Transactional
     public OrderReadyPageDto getOrder(String orderUid) {
         return orderRepository.getOrderDto(orderUid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 오더 Uid에 대한 데이터를 찾을 수 없습니다."));
     }
 
     // 마이 페이지 나의 주문 조회
+    @Transactional
     public OrderListGetDto getOrderListPageDto(Long memberId) {
         return orderRepository.findAllOrdersByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 데이터를 찾을 수 없습니다."));
     }
 
     // 마이 페이지 나의 주문 상세 조회
+    @Transactional
     public List<MyPageOrderDto> getMyOrderPageDto(Long memberId, String orderUid) {
         List<MyPageOrderDto> myPageOrderDtoByOrderUid = orderRepository.getMyPageOrderDtoByOrderUid(memberId, orderUid);
 
@@ -133,6 +135,8 @@ public class OrderService {
         return myPageOrderDtoByOrderUid;
     }
 
+    // 어드민 페이지 오더 조회
+    @Transactional
     public List<AdminOrderListDto> findAdminOrderListDto(AdminOrderFilterDto filterDto) {
         List<AdminOrderListDto> adminOrderList = orderRepository.findAdminOrderListDtoByFilter(filterDto);
 
@@ -143,6 +147,8 @@ public class OrderService {
         return adminOrderList;
     }
 
+    // 어드민 페이지 오더 상태 수정
+    @Transactional
     public void changeOrderStatus(Long orderId, String orderStatus) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 요청입니다."));
@@ -163,6 +169,7 @@ public class OrderService {
         deliveryRepository.save(delivery);
     }
 
+    @Transactional
     public AdminOrderDetailDto findAdminOrderDetailDtoList(Long orderId) {
 
         return orderRepository.findAdminOrderDetailDtoList(orderId)

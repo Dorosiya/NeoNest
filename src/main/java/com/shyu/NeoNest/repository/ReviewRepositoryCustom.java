@@ -1,11 +1,9 @@
 package com.shyu.NeoNest.repository;
 
-import com.shyu.NeoNest.dto.response.ReviewInfoDto;
-
-import java.util.Optional;
+import com.shyu.NeoNest.dto.response.ProductReviewInfoDto;
 
 public interface ReviewRepositoryCustom {
 
-
+    ProductReviewInfoDto findProductReviewInfo(Long productId);
 
 }

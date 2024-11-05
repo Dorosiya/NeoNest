@@ -5,7 +5,8 @@ import com.shyu.NeoNest.domain.Order;
 import com.shyu.NeoNest.domain.Product;
 import com.shyu.NeoNest.domain.Review;
 import com.shyu.NeoNest.dto.request.ReviewCreateDto;
-import com.shyu.NeoNest.dto.response.ReviewInfoDto;
+import com.shyu.NeoNest.dto.response.OrderProductReviewInfoDto;
+import com.shyu.NeoNest.dto.response.ProductReviewInfoDto;
 import com.shyu.NeoNest.exception.DuplicateReviewException;
 import com.shyu.NeoNest.exception.InvalidOrderException;
 import com.shyu.NeoNest.exception.ProductNotInOrderException;
@@ -14,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -26,6 +26,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     // 리뷰 추가 및 저장
+    @Transactional
     public void addReview(Long memberId,
                           Long productId,
                           String orderUid,
@@ -77,8 +78,13 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public ReviewInfoDto findReview(String orderUid, Long productId, Long memberId) {
-        return orderRepository.findReviewInfo(orderUid, productId, memberId);
+    public OrderProductReviewInfoDto findOrderProductReview(String orderUid, Long productId, Long memberId) {
+        return orderRepository.findOrderProductReviewInfo(orderUid, productId, memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductReviewInfoDto findProductReview(Long productId) {
+        return reviewRepository.findProductReviewInfo(productId);
     }
 
 }

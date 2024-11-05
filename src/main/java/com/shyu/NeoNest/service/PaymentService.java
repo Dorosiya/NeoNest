@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class PaymentService {
@@ -37,6 +36,7 @@ public class PaymentService {
     private final DeliveryRepository deliveryRepository;
     private final IamportClient iamportClient;
 
+    @Transactional
     public OrderPaymentDto getOrderPaymentInfo(String orderUid) {
         Order findOrder = orderRepository.findOrderAndPaymentAndMember(orderUid)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 주문 Uid입니다."));
@@ -53,6 +53,7 @@ public class PaymentService {
                 .build();
     }
 
+    @Transactional
     public IamportResponse<Payment> paymentByCallback(PaymentCallbackRequest request) {
 
         try {
@@ -127,6 +128,7 @@ public class PaymentService {
         }
     }
 
+    @Transactional(readOnly = true)
     public SuccessPageDto getDeliveryInfo(String orderUid) {
         return orderRepository.getDeliveryDto(orderUid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 배송 정보를 찾을 수 없습니다."));

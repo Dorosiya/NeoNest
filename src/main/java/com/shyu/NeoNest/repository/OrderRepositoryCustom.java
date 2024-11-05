@@ -27,6 +27,6 @@ public interface OrderRepositoryCustom {
 
     Optional<AdminOrderDetailDto> findAdminOrderDetailDtoList(Long orderId);
 
-    ReviewInfoDto findReviewInfo(String orderUid, Long productId, Long memberId);
+    OrderProductReviewInfoDto findOrderProductReviewInfo(String orderUid, Long productId, Long memberId);
 
 }

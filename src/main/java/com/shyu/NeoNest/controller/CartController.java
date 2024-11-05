@@ -28,7 +28,10 @@ public class CartController {
                                                            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
         log.info("장바구니 아이템 생성");
-        cartService.insertCartItem(dto);
+
+        Long memberId = customUserDetails.getMemberId();
+
+        cartService.insertCartItem(memberId, dto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "장바구니 아이템 생성 성공"));
     }

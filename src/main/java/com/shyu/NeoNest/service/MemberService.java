@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -24,6 +23,7 @@ public class MemberService {
     private final BCryptPasswordEncoder encoder;
     private final RoleRepository roleRepository;
 
+    @Transactional
     public void singupMember(SignupDto signupDto) {
         Role userRole = roleRepository.findByRoleName(RoleType.ROLE_USER)
                 .orElseThrow(() -> new IllegalArgumentException("해당 권한을 찾을 수 없습니다."));
@@ -76,6 +76,7 @@ public class MemberService {
                 .build();
     }
 
+    @Transactional
     public MemberInfoDto getMemberInfo(String memberName) {
         MemberInfoDto memberInfoDto = memberRepository.getMemberInfoDtoByMemberName(memberName)
                 .orElseThrow(() -> new MemberNotFoundException("잘못된 멤버 네임입니다."));
@@ -85,6 +86,7 @@ public class MemberService {
         return memberInfoDto;
     }
 
+    @Transactional
     public void editMember(SignupDto signupDto) {
         Role userRole = roleRepository.findByRoleName(RoleType.ROLE_USER)
                 .orElseThrow(() -> new IllegalArgumentException("해당 권한을 찾을 수 없습니다."));

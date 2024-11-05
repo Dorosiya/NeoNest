@@ -1,6 +1,5 @@
 package com.shyu.NeoNest.controller;
 
-import com.shyu.NeoNest.domain.Order;
 import com.shyu.NeoNest.dto.request.AdminOrderFilterDto;
 import com.shyu.NeoNest.dto.request.OrderCreateDto;
 import com.shyu.NeoNest.dto.response.*;
@@ -11,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +26,10 @@ public class OrderController {
 
     // 장바구니 -> 주문 or 상품상세 -> 구매 시 주문 생성
     @PostMapping("/orders")
-    public ResponseEntity<String> createOrder(@RequestBody OrderCreateDto orderCreateDto) {
+    public ResponseEntity<String> createOrder(@Validated @RequestBody OrderCreateDto orderCreateDto) {
+
         log.info("주문 생성");
+
         String orderUid = orderService.createOrder(orderCreateDto);
 
         return new ResponseEntity<>(orderUid, HttpStatus.CREATED);
@@ -37,6 +39,11 @@ public class OrderController {
     @GetMapping("/orders/{orderUid}")
     public ResponseEntity<OrderReadyPageDto> getOrder(@PathVariable("orderUid") String orderUid) {
         log.info("주문 시 오더 조회");
+
+        if (orderUid == null || orderUid.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         OrderReadyPageDto getOrder = orderService.getOrder(orderUid);
 
         return new ResponseEntity<>(getOrder, HttpStatus.OK);
@@ -65,9 +72,12 @@ public class OrderController {
 
     //어드민 페이지 오더 조회
     @GetMapping("/admin/orders")
-    public ResponseEntity<List<AdminOrderListDto>> getAdminOrders(@ModelAttribute("AdminOrderFilterDto") AdminOrderFilterDto adminOrderFilterDto) {
+    public ResponseEntity<List<AdminOrderListDto>> getAdminOrders(@RequestBody AdminOrderFilterDto adminOrderFilterDto) {
+
         log.info("어드민 페이지 오더 조회");
+
         List<AdminOrderListDto> adminOrderListDto = orderService.findAdminOrderListDto(adminOrderFilterDto);
+
         return new ResponseEntity<>(adminOrderListDto, HttpStatus.OK);
     }
 
@@ -92,7 +102,6 @@ public class OrderController {
 
         return new ResponseEntity<>(adminOrderDetailDtoList, HttpStatus.OK);
     }
-
 
 
 }

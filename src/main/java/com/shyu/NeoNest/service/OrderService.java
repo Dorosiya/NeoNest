@@ -8,17 +8,19 @@ import com.shyu.NeoNest.dto.response.*;
 import com.shyu.NeoNest.enums.DeliveryStatus;
 import com.shyu.NeoNest.enums.OrderStatus;
 import com.shyu.NeoNest.enums.PaymentStatus;
+import com.shyu.NeoNest.exception.MemberNotFoundException;
+import com.shyu.NeoNest.exception.OrderNotFoundException;
 import com.shyu.NeoNest.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -35,12 +37,8 @@ public class OrderService {
     @Transactional
     public String createOrder(OrderCreateDto dto) {
 
-        if (dto.getOrderItems().isEmpty()) {
-            throw new IllegalArgumentException("최소 1개 이상의 물품을 주문해주세요");
-        }
-
         Member getMember = memberRepository.findById(dto.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 요청입니다."));
+                .orElseThrow(() -> new MemberNotFoundException("사용자를 찾을 수 없습니다. 멤버 ID : " + dto.getMemberId()));
 
         List<OrderItemDto> orderItemsDto = dto.getOrderItems();
         Map<Long, Product> productMap = new HashMap<>();
@@ -69,13 +67,27 @@ public class OrderService {
         }
 
         // 2. 결제 정보 생성 및 저장
+        Payment newPayment = createAndSavePayment(totalPrice);
+
+        // 3. 새로운 주문 생성
+        Order newOrder = createAndSaveOrder(getMember, newPayment, orderName);
+
+        // 4. 주문 상품 저장, 카트 아이템 삭제
+        saveOrderItemsAndRemoveFromCart(orderItemsDto, productMap, newOrder, getMember);
+
+        return newOrder.getOrderUid();
+    }
+
+    private Payment createAndSavePayment(BigDecimal totalPrice) {
         Payment newPayment = Payment.builder()
                 .price(totalPrice)
                 .status(PaymentStatus.READY)
                 .build();
         paymentRepository.save(newPayment);
+        return newPayment;
+    }
 
-        // 3. 새로운 주문 생성
+    private Order createAndSaveOrder(Member getMember, Payment newPayment, String orderName) {
         Order newOrder = Order.builder()
                 .member(getMember)
                 .payment(newPayment)
@@ -85,8 +97,10 @@ public class OrderService {
                 .status(OrderStatus.READY)
                 .build();
         orderRepository.save(newOrder);
+        return newOrder;
+    }
 
-        // 4. 주문 상품 저장, 카트 아이템 삭제
+    private void saveOrderItemsAndRemoveFromCart(List<OrderItemDto> orderItemsDto, Map<Long, Product> productMap, Order newOrder, Member getMember) {
         for (OrderItemDto orderItemDto : orderItemsDto) {
             Product getProduct = productMap.get(orderItemDto.getProductId()); // 캐싱된 상품 가져오기
 
@@ -105,27 +119,44 @@ public class OrderService {
                 cartRepository.deleteCartById(getMember.getMemberId(), orderItemDto.getCartId());
             }
         }
-
-        return newOrder.getOrderUid();
     }
 
+
     // orderUid로 주문 페이지 진입 시 오더 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public OrderReadyPageDto getOrder(String orderUid) {
+        if (orderUid == null || orderUid.isEmpty()) {
+            throw new IllegalArgumentException("유효한 orderUid를 입력해주세요.");
+        }
+
         return orderRepository.getOrderDto(orderUid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 오더 Uid에 대한 데이터를 찾을 수 없습니다."));
     }
 
     // 마이 페이지 나의 주문 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public OrderListGetDto getOrderListPageDto(Long memberId) {
+        if (memberId == null || memberId <= 0) {
+            throw new IllegalArgumentException("유효한 멤버 ID를 입력해주세요.");
+        }
+
         return orderRepository.findAllOrdersByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 데이터를 찾을 수 없습니다."));
     }
 
     // 마이 페이지 나의 주문 상세 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<MyPageOrderDto> getMyOrderPageDto(Long memberId, String orderUid) {
+        // 입력 값 검증
+        if (memberId == null || memberId <= 0) {
+            throw new IllegalArgumentException("유효한 멤버 ID를 입력해주세요.");
+        }
+
+        if (orderUid == null || orderUid.trim().isEmpty()) {
+            throw new IllegalArgumentException("유효한 오더 Uid를 입력해주세요.");
+        }
+
+        // 나의 주문 상세 조회
         List<MyPageOrderDto> myPageOrderDtoByOrderUid = orderRepository.getMyPageOrderDtoByOrderUid(memberId, orderUid);
 
         if (myPageOrderDtoByOrderUid == null) {
@@ -138,20 +169,27 @@ public class OrderService {
     // 어드민 페이지 오더 조회
     @Transactional
     public List<AdminOrderListDto> findAdminOrderListDto(AdminOrderFilterDto filterDto) {
-        List<AdminOrderListDto> adminOrderList = orderRepository.findAdminOrderListDtoByFilter(filterDto);
-
-        if (adminOrderList == null) {
-            throw new IllegalArgumentException("잘못된 요청입니다.");
+        // 입력 값 검증
+        if (filterDto == null) {
+            throw new IllegalArgumentException("필터 정보가 필요합니다.");
         }
 
-        return adminOrderList;
+        if (filterDto.getStartDate() != null && filterDto.getEndDate() != null
+                && filterDto.getStartDate().isAfter(filterDto.getEndDate())) {
+            throw new IllegalArgumentException("시작 날짜는 종료 날짜보다 이전이어야 합니다.");
+        }
+
+        // 필터 조건에 맞는 주문 리스트 조회
+        List<AdminOrderListDto> adminOrderList = orderRepository.findAdminOrderListDtoByFilter(filterDto);
+
+        return adminOrderList == null ? Collections.emptyList() : adminOrderList;
     }
 
     // 어드민 페이지 오더 상태 수정
     @Transactional
     public void changeOrderStatus(Long orderId, String orderStatus) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 요청입니다."));
+                .orElseThrow(() -> new OrderNotFoundException("잘못된 요청입니다."));
 
         Delivery delivery = order.getDelivery();
 
@@ -169,8 +207,11 @@ public class OrderService {
         deliveryRepository.save(delivery);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public AdminOrderDetailDto findAdminOrderDetailDtoList(Long orderId) {
+        if (orderId == null) {
+            throw new IllegalArgumentException("유효한 오더 Id를 입력해주세요.");
+        }
 
         return orderRepository.findAdminOrderDetailDtoList(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 요청입니다."));

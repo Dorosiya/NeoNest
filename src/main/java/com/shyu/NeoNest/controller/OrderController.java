@@ -27,7 +27,6 @@ public class OrderController {
     // 장바구니 -> 주문 or 상품상세 -> 구매 시 주문 생성
     @PostMapping("/orders")
     public ResponseEntity<String> createOrder(@Validated @RequestBody OrderCreateDto orderCreateDto) {
-
         log.info("주문 생성");
 
         String orderUid = orderService.createOrder(orderCreateDto);
@@ -40,10 +39,6 @@ public class OrderController {
     public ResponseEntity<OrderReadyPageDto> getOrder(@PathVariable("orderUid") String orderUid) {
         log.info("주문 시 오더 조회");
 
-        if (orderUid == null || orderUid.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
         OrderReadyPageDto getOrder = orderService.getOrder(orderUid);
 
         return new ResponseEntity<>(getOrder, HttpStatus.OK);
@@ -53,7 +48,9 @@ public class OrderController {
     @GetMapping("/mypage/orders")
     public ResponseEntity<OrderListGetDto> getOrderList(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("마이페이지 오더 목록 조회");
+
         Long memberId = customUserDetails.getMemberId();
+
         OrderListGetDto orderListPageDto = orderService.getOrderListPageDto(memberId);
 
         return new ResponseEntity<>(orderListPageDto, HttpStatus.OK);

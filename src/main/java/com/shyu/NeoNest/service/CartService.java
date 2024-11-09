@@ -6,6 +6,8 @@ import com.shyu.NeoNest.domain.Product;
 import com.shyu.NeoNest.dto.request.CartCreateDto;
 import com.shyu.NeoNest.dto.request.CartUpdateDto;
 import com.shyu.NeoNest.dto.response.CartsDto;
+import com.shyu.NeoNest.exception.CartNotFoundException;
+import com.shyu.NeoNest.exception.MemberNotFoundException;
 import com.shyu.NeoNest.repository.CartRepository;
 import com.shyu.NeoNest.repository.MemberRepository;
 import com.shyu.NeoNest.repository.ProductRepository;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -27,22 +29,34 @@ public class CartService {
     @Transactional
     public void insertCartItem(Long memberId, CartCreateDto dto) {
         Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾지 못했습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("회원을 찾지 못했습니다."));
+
         Product findProduct = productRepository.findById(dto.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("상품을 찾지 못했습니다."));
 
-        Cart buildCart = Cart.builder()
-                .member(findMember)
-                .product(findProduct)
-                .price(dto.getPrice())
-                .quantity(dto.getQuantity())
-                .build();
+        Optional<Cart> existingCartItem = cartRepository.findByMemberIdAndProductId(findMember.getMemberId(),
+                findProduct.getProductId());
 
-        cartRepository.save(buildCart);
+        if (existingCartItem.isPresent()) {
+            Cart cart = existingCartItem.get();
+            cart.changeQuantity(cart.getQuantity() + dto.getQuantity());
+        } else {
+            Cart buildCart = Cart.builder()
+                    .member(findMember)
+                    .product(findProduct)
+                    .price(dto.getPrice())
+                    .quantity(dto.getQuantity())
+                    .build();
+
+            cartRepository.save(buildCart);
+        }
     }
 
     @Transactional(readOnly = true)
     public List<CartsDto> getCart(Long memberId) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException("회원을 찾지 못했습니다."));
+
         return cartRepository.getCartsDto(memberId);
     }
 
@@ -52,20 +66,25 @@ public class CartService {
         Long cartId = dto.getCartId();
 
         Cart getCart = cartRepository.getCarts(memberId, cartId)
-                .orElseThrow(() -> new IllegalArgumentException("장바구니를 찾지 못했습니다."));
+                .orElseThrow(() -> new CartNotFoundException("장바구니를 찾지 못했습니다."));
 
         getCart.changeQuantity(dto.getQuantity());
         cartRepository.save(getCart);
     }
 
+    // 장바구니 상품 삭제
     @Transactional
     public void deleteCartItem(Long memberId, Long cartId) {
+        cartRepository.getCarts(memberId, cartId)
+                .orElseThrow(() -> new CartNotFoundException("장바구니를 찾지 못했습니다."));
+
         cartRepository.deleteCartById(memberId, cartId);
     }
 
-    /*// 다수 장바구니 삭제 기능 추가 시 사용
+    // 다수 장바구니 삭제 기능 추가 시 사용(현재 미 사용)
+    @Transactional
     public void deleteCartItems(Long memberId, List<Long> cartItemIds) {
         cartRepository.deleteCartsItemByIds(memberId, cartItemIds);
-    }*/
+    }
 
 }

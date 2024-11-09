@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(CartNotFoundException.class)
+    public ResponseEntity<ExResponseDto> CartNotFoundExHandler(CartNotFoundException e) {
+        log.error("CartNotFoundException : {}", e.getMessage(), e);
+        ExResponseDto exDto = new ExResponseDto("fail", e.getMessage());
+
+        return new ResponseEntity<>(exDto, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(DuplicateReviewException.class)
     public ResponseEntity<ExResponseDto> DuplicateReviewExHandler(DuplicateReviewException e) {
         log.error("DuplicateReviewException : {}", e.getMessage(), e);

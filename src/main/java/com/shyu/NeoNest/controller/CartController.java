@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class CartController {
     }
 
     @PatchMapping
-    public ResponseEntity<Map<String, Object>> updateCartItemsQuantity(@RequestBody CartUpdateDto dto, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    public ResponseEntity<Map<String, Object>> updateCartItemsQuantity(@Validated @RequestBody CartUpdateDto dto, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("장바구니 아이템 갯수 업데이트");
         cartService.updateCart(dto);
 

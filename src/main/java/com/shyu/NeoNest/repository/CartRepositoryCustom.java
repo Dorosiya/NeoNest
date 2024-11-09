@@ -15,4 +15,6 @@ public interface CartRepositoryCustom {
     void deleteCartById(Long memberId, Long cartId);
 
     void deleteCartsItemByIds(Long memberId, List<Long> cartItemIds);
+
+    Optional<Cart> findByMemberIdAndProductId(Long memberId, Long productId);
 }

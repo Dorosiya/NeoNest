@@ -33,6 +33,7 @@ public class ProductController {
                                                                @RequestPart("product") ProductRegisterDto productDto) throws IOException {
 
         productService.saveProduct(image, productDto);
+
         return ResponseEntity.ok(Map.of("success", true, "message", "상품 등록 성공"));
     }
 

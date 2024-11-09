@@ -66,4 +66,15 @@ public class CartRepositoryImpl implements CartRepositoryCustom {
                         cart.member.memberId.eq(memberId))
                 .execute();
     }
+
+    @Override
+    public Optional<Cart> findByMemberIdAndProductId(Long memberId, Long productId) {
+        Cart findCart = queryFactory
+                .selectFrom(cart)
+                .where(cart.member.memberId.eq(memberId),
+                        cart.product.productId.eq(productId))
+                .fetchOne();
+
+        return Optional.ofNullable(findCart);
+    }
 }

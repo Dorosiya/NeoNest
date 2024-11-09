@@ -24,6 +24,10 @@ public class WishlistService {
     // 찜 목록 추가
     @Transactional
     public void addToWishlist(Long memberId, Long productId) {
+        if (memberId == null || productId == null) {
+            throw new IllegalArgumentException("회원 ID와 상품 ID는 필수 값입니다.");
+        }
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException(memberId + "해당 아이디의 멤버가 없습니다."));
 
@@ -42,6 +46,10 @@ public class WishlistService {
     // 찜 목록 확인(조회)
     @Transactional(readOnly = true)
     public InWishlistDto findWishlist(Long memberId, Long productId) {
+        if (memberId == null || productId == null) {
+            throw new IllegalArgumentException("회원 ID와 상품 ID는 필수 값입니다.");
+        }
+
         boolean isInWishlist = wishlistRepository.checkIfInWishlist(memberId, productId);
 
         return new InWishlistDto(isInWishlist);
@@ -50,6 +58,10 @@ public class WishlistService {
     // 찜 목록 제거
     @Transactional
     public void removeFromWishlist(Long memberId, Long productId) {
+        if (memberId == null || productId == null) {
+            throw new IllegalArgumentException("회원 ID와 상품 ID는 필수 값입니다.");
+        }
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException(memberId + "해당 아이디의 멤버가 없습니다."));
 

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/member")
-    public ResponseEntity<Map<String, Object>> signupMember(@RequestBody SignupDto signupDto) {
+    public ResponseEntity<Map<String, Object>> signupMember(@Validated @RequestBody SignupDto signupDto) {
         log.info("회원가입 시작");
         memberService.singupMember(signupDto);
 

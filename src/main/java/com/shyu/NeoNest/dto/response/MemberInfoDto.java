@@ -16,8 +16,4 @@ public class MemberInfoDto {
         this.memberName = memberName;
         this.RoleName = roleName;
     }
-
-    public void changeIsLoggedIn() {
-        this.loginStatus = true;
-    }
 }

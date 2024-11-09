@@ -7,9 +7,7 @@ import com.shyu.NeoNest.domain.Review;
 import com.shyu.NeoNest.dto.request.ReviewCreateDto;
 import com.shyu.NeoNest.dto.response.OrderProductReviewInfoDto;
 import com.shyu.NeoNest.dto.response.ProductReviewInfoDto;
-import com.shyu.NeoNest.exception.DuplicateReviewException;
-import com.shyu.NeoNest.exception.InvalidOrderException;
-import com.shyu.NeoNest.exception.ProductNotInOrderException;
+import com.shyu.NeoNest.exception.*;
 import com.shyu.NeoNest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,14 +29,19 @@ public class ReviewService {
                           Long productId,
                           String orderUid,
                           ReviewCreateDto dto) {
+
+        if (orderUid == null || productId == null || memberId == null) {
+            throw new IllegalArgumentException("필수 파라미터가 누락되었습니다.");
+        }
+
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("올바르지 않은 멤버 아이디입니다."));
+                .orElseThrow(() -> new MemberNotFoundException("올바르지 않은 멤버 아이디입니다."));
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("올바르지 않은 상품 아이디 입니다."));
+                .orElseThrow(() -> new ProductNotFoundException("올바르지 않은 상품 아이디 입니다."));
 
         Order order = orderRepository.findOrderByUid(orderUid)
-                .orElseThrow(() -> new IllegalArgumentException("올바르지 않은 주문 아이디입니다."));
+                .orElseThrow(() -> new OrderNotFoundException("올바르지 않은 주문 아이디입니다."));
 
         // 주문이 해당 회원의 것인지 확인
         validateOrder(order, member);
@@ -79,11 +82,30 @@ public class ReviewService {
 
     @Transactional(readOnly = true)
     public OrderProductReviewInfoDto findOrderProductReview(String orderUid, Long productId, Long memberId) {
+        if (orderUid == null || productId == null || memberId == null) {
+            throw new IllegalArgumentException("필수 파라미터가 누락되었습니다.");
+        }
+
+        // 사용자가 해당 주문에 접근할 권한이 있는지 확인
+        validateOrderOwnership(orderUid, memberId);
+
         return orderRepository.findOrderProductReviewInfo(orderUid, productId, memberId);
+    }
+
+    private void validateOrderOwnership(String orderUid, Long memberId) {
+        Order order = orderRepository.findOrderByUid(orderUid)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 주문 ID입니다."));
+        if (!order.getMember().getMemberId().equals(memberId)) {
+            throw new UnauthorizedAccessException("사용자가 해당 주문에 접근할 수 없습니다.");
+        }
     }
 
     @Transactional(readOnly = true)
     public ProductReviewInfoDto findProductReview(Long productId) {
+        if (productId == null) {
+            throw new IllegalArgumentException("상품 ID는 필수 값입니다.");
+        }
+
         return reviewRepository.findProductReviewInfo(productId);
     }
 

@@ -38,6 +38,10 @@ public class PaymentService {
 
     @Transactional
     public OrderPaymentDto getOrderPaymentInfo(String orderUid) {
+        if (orderUid == null || orderUid.trim().isEmpty()) {
+            throw new IllegalArgumentException("주문 Uid는 필수 값입니다.");
+        }
+
         Order findOrder = orderRepository.findOrderAndPaymentAndMember(orderUid)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 주문 Uid입니다."));
 

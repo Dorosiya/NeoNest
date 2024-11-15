@@ -23,11 +23,11 @@ public class WishlistController {
 
     // 상품을 찜 목록에 추가
     @PostMapping("/wishlist")
-    public ResponseEntity<Map<String, Object>> addWishlist(@RequestBody WishlistAddDto dto,
+    public ResponseEntity<Map<String, Object>> addWishlist(@RequestBody WishlistAddDto wishlistAddDto,
                                                            @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getMemberId();
-        wishlistService.addToWishlist(memberId, dto.getProductId());
+        wishlistService.addToWishlist(memberId, wishlistAddDto.getProductId());
         return new ResponseEntity<>(Map.of("success", true, "message", "찜 목록 추가 성공"), HttpStatus.OK);
     }
 

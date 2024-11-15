@@ -25,6 +25,7 @@ public class SignupDto {
     @NotEmpty(message = "이름을 입력해 주세요")
     private String name;
 
+    @NotNull(message = "나이를 입력해 주세요")
     @Range(min = 0, max = 150)
     private int age;
 
@@ -34,12 +35,11 @@ public class SignupDto {
     @NotEmpty(message = "주소를 입력해 주세요")
     private String address;
 
-    @NotEmpty(message = "주소를 입력해 주세요")
     private String detailAddress;
 
-    @NotEmpty(message = "주소를 입력해 주세요")
     private String extraAddress;
 
     @NotEmpty(message = "우편번호를 입력해 주세요")
     private String postcode;
+
 }

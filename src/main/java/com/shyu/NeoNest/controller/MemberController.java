@@ -1,5 +1,6 @@
 package com.shyu.NeoNest.controller;
 
+import com.shyu.NeoNest.dto.request.EditMemberDto;
 import com.shyu.NeoNest.dto.request.SignupDto;
 import com.shyu.NeoNest.dto.response.MemberDto;
 import com.shyu.NeoNest.dto.response.MemberInfoDto;
@@ -23,6 +24,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원 가입
     @PostMapping("/member")
     public ResponseEntity<Map<String, Object>> signupMember(@Validated @RequestBody SignupDto signupDto) {
         log.info("회원가입 시작");
@@ -31,6 +33,7 @@ public class MemberController {
         return ResponseEntity.ok(Map.of("success", true, "message", "회원가입 성공"));
     }
 
+    // 회원 조회
     @GetMapping("/member")
     public ResponseEntity<MemberDto> getMember(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("회원조회 시작");
@@ -39,15 +42,17 @@ public class MemberController {
         return new ResponseEntity<>(memberDto, HttpStatus.OK);
     }
 
+    // 회원 수정
     @PatchMapping("/member")
-    public ResponseEntity<Map<String, Object>> editMember(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        log.info("회원조회 시작");
-        MemberDto memberDto = memberService.getMemberDto(customUserDetails.getUsername());
+    public ResponseEntity<Map<String, Object>> editMember(@Validated @RequestBody EditMemberDto editMemberDto,
+                                                          @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        log.info("회원수정 시작");
+        memberService.editMember(editMemberDto, customUserDetails.getUsername());
 
         return new ResponseEntity<>(Map.of("success", true, "message", "회원 정보 수정 성공"), HttpStatus.OK);
     }
 
-    // 로그인 현황 조회
+    // 로그인 정보 조회
     @GetMapping("/member/info")
     public ResponseEntity<MemberInfoDto> getMemberInfo(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("로그인 식별 시작");

@@ -84,30 +84,6 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품 ID입니다."));
 
         // 새 이미지가 있을 경우 기존 이미지 삭제 후 새 이미지 저장
-        /*if (image != null && !image.isEmpty()) {
-            String existingImageFilename = product.getImage().getStoreFileName();
-            if (existingImageFilename != null) {
-                // 기존 파일 삭제
-                fileService.deleteFile(existingImageFilename);
-            }
-
-            // 새로운 이미지 저장
-            UploadFile uploadImage = fileService.storeFile(image);
-            product.editProduct(
-                    dto.getName(),
-                    dto.getPrice(),
-                    dto.getStockQuantity(),
-                    dto.getDescription(),
-                    uploadImage);
-        } else {
-            // 이미지 변경이 없는 경우 나머지 정보만 수정
-            product.editProduct(
-                    dto.getName(),
-                    dto.getPrice(),
-                    dto.getStockQuantity(),
-                    dto.getDescription(),
-                    null); // 기존 이미지 유지
-        }*/
         UploadFile updatedImage = null;
         if (image != null && !image.isEmpty()) {
             String existingImageFilename = product.getImage().getStoreFileName();

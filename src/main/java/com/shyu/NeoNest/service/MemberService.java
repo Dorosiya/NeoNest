@@ -2,6 +2,7 @@ package com.shyu.NeoNest.service;
 
 import com.shyu.NeoNest.domain.Member;
 import com.shyu.NeoNest.domain.Role;
+import com.shyu.NeoNest.dto.request.EditMemberDto;
 import com.shyu.NeoNest.dto.request.SignupDto;
 import com.shyu.NeoNest.dto.response.MemberDto;
 import com.shyu.NeoNest.dto.response.MemberInfoDto;
@@ -113,30 +114,24 @@ public class MemberService {
 
     // 멤버 정보 수정
     @Transactional
-    public void editMember(SignupDto signupDto) {
-        Role userRole = roleRepository.findByRoleName(RoleType.ROLE_USER)
-                .orElseThrow(() -> new IllegalArgumentException("해당 권한을 찾을 수 없습니다."));
+    public void editMember(EditMemberDto editMemberDto, String memberName) {
+        Member editMember = getMember(memberName);
 
-        String getMemberName = signupDto.getMemberName();
+        updateMemberInfo(editMemberDto, editMember);
+    }
 
-        Boolean isExist = memberRepository.existsByMemberName(getMemberName);
+    private void updateMemberInfo(EditMemberDto editMemberDto, Member editMember) {
+        editMember.editMember(
+                editMemberDto.getName(),
+                editMemberDto.getEmail(),
+                editMemberDto.getAge(),
+                editMemberDto.getPhoneNumber(),
+                editMemberDto.getAddress(),
+                editMemberDto.getDetailAddress(),
+                editMemberDto.getExtraAddress(),
+                editMemberDto.getPostcode()
+        );
 
-        if (isExist) {
-            throw new DuplicationMemberNameException("사용할 수 없는 아이디 입니다.");
-        }
-
-        Member joinMember = Member.builder()
-                .role(userRole)
-                .memberName(getMemberName)
-                .password(encoder.encode(signupDto.getPassword()))
-                .email(signupDto.getEmail())
-                .age(signupDto.getAge())
-                .name(signupDto.getName())
-                .phoneNumber(signupDto.getPhoneNumber())
-                .address(signupDto.getAddress())
-                .postcode(signupDto.getPostcode())
-                .build();
-
-        memberRepository.save(joinMember);
+        memberRepository.save(editMember);
     }
 }

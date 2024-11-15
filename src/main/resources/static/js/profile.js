@@ -1,3 +1,4 @@
+/* profile.js */
 document.addEventListener('DOMContentLoaded', function() {
     axios.get('/api/member', {
         withCredentials: true
@@ -10,14 +11,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('member-name').innerText = data.name;
             document.getElementById('member-email').innerText = data.email;
             document.getElementById('member-phone').innerText = data.phoneNumber;
-            document.getElementById('member-address').innerText = data.address;
+            document.getElementById('member-address').innerText = data.address + " " + data.detailAddress;
+            document.getElementById('member-age').innerText = data.age;
 
             // 수정 폼에도 데이터를 설정
             document.getElementById('memberName').value = data.memberName;
             document.getElementById('name').value = data.name;
             document.getElementById('email').value = data.email;
             document.getElementById('phone').value = data.phoneNumber;
+            document.getElementById('age').value = data.age;
             document.getElementById('address').value = data.address;
+            document.getElementById('detailAddress').value = data.detailAddress;
+            document.getElementById('extraAddress').value = data.extraAddress;
             document.getElementById('postcode').value = data.postcode;
         })
         .catch(error => {
@@ -40,19 +45,21 @@ document.getElementById('save-button').addEventListener('click', function() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
+    const age = document.getElementById('age').value;
     const postcode = document.getElementById('postcode').value;
     const address = document.getElementById('address').value;
     const detailAddress = document.getElementById('detailAddress').value;
     const extraAddress = document.getElementById('extraAddress').value;
 
-    const fullAddress = `${address} ${detailAddress} ${extraAddress}`;
-
-    axios.post('/api/member/update', {
+    axios.patch('/api/member', {
         name: name,
         email: email,
-        phone: phone,
-        address: fullAddress,
-        postcode: postcode
+        phoneNumber: phone,
+        age: age,
+        postcode: postcode,
+        address: address,
+        detailAddress: detailAddress,
+        extraAddress: extraAddress
     })
         .then(response => {
             alert('정보가 성공적으로 저장되었습니다.');

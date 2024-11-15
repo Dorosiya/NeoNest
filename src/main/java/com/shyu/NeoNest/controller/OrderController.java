@@ -34,7 +34,7 @@ public class OrderController {
         return new ResponseEntity<>(orderUid, HttpStatus.CREATED);
     }
 
-    // 주문 시 오더 조회
+    // 오더 조회
     @GetMapping("/orders/{orderUid}")
     public ResponseEntity<OrderReadyPageDto> getOrder(@PathVariable("orderUid") String orderUid) {
         log.info("주문 시 오더 조회");
@@ -69,25 +69,13 @@ public class OrderController {
 
     //어드민 페이지 오더 조회
     @GetMapping("/admin/orders")
-    public ResponseEntity<List<AdminOrderListDto>> getAdminOrders(@RequestBody AdminOrderFilterDto adminOrderFilterDto) {
+    public ResponseEntity<List<AdminOrderListDto>> getAdminOrders(@Validated @RequestBody AdminOrderFilterDto adminOrderFilterDto) {
 
         log.info("어드민 페이지 오더 조회");
 
         List<AdminOrderListDto> adminOrderListDto = orderService.findAdminOrderListDto(adminOrderFilterDto);
 
         return new ResponseEntity<>(adminOrderListDto, HttpStatus.OK);
-    }
-
-    //어드민 페이지 오더 수정
-    @PatchMapping("/admin/orders/{orderId}/orderStatus")
-    public ResponseEntity<Map<String, Object>> editOrderStatus(@PathVariable Long orderId,
-                                                               @RequestBody Map<String, String> requestBody) {
-        log.info("어드민 페이지 오더 조회");
-
-        String status = requestBody.get("status");
-        orderService.changeOrderStatus(orderId, status);
-
-        return ResponseEntity.ok(Map.of("message", "오더 수정 성공"));
     }
 
     //어드민 페이지 오더 상세 정보 조회
@@ -99,6 +87,20 @@ public class OrderController {
 
         return new ResponseEntity<>(adminOrderDetailDtoList, HttpStatus.OK);
     }
+
+    //어드민 페이지 오더 수정
+    @PatchMapping("/admin/orders/{orderId}/orderStatus")
+    public ResponseEntity<Map<String, Object>> editOrderStatus(@PathVariable Long orderId,
+                                                               @RequestBody Map<String, String> statusCode) {
+        log.info("어드민 페이지 오더 조회");
+
+        String status = statusCode.get("status");
+        orderService.changeOrderStatus(orderId, status);
+
+        return ResponseEntity.ok(Map.of("message", "오더 수정 성공"));
+    }
+
+
 
 
 }

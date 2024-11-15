@@ -61,8 +61,7 @@ public class CartService {
     }
 
     @Transactional
-    public void updateCart(CartUpdateDto dto) {
-        Long memberId = dto.getMemberId();
+    public void updateCart(Long memberId, CartUpdateDto dto) {
         Long cartId = dto.getCartId();
 
         Cart getCart = cartRepository.getCarts(memberId, cartId)

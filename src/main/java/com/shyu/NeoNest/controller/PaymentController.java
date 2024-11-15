@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -22,7 +23,7 @@ public class PaymentController {
 
     // 결제 정보 리턴
     @PostMapping
-    public ResponseEntity<IamportResponse<Payment>> validationPayment(@RequestBody PaymentCallbackRequest request) {
+    public ResponseEntity<IamportResponse<Payment>> validationPayment(@Validated @RequestBody PaymentCallbackRequest request) {
         log.info("결제 시작");
         IamportResponse<Payment> iamportResponse = paymentService.paymentByCallback(request);
         log.info("결제 응답={}", iamportResponse.getResponse().toString());

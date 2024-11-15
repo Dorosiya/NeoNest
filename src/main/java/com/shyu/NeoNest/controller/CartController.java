@@ -25,14 +25,14 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> getCartsDto(@RequestBody CartCreateDto dto,
+    public ResponseEntity<Map<String, Object>> getCartsDto(@RequestBody CartCreateDto cartCreateDto,
                                                            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
         log.info("장바구니 아이템 생성");
 
         Long memberId = customUserDetails.getMemberId();
 
-        cartService.insertCartItem(memberId, dto);
+        cartService.insertCartItem(memberId, cartCreateDto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "장바구니 아이템 생성 성공"));
     }
@@ -46,15 +46,18 @@ public class CartController {
     }
 
     @PatchMapping
-    public ResponseEntity<Map<String, Object>> updateCartItemsQuantity(@Validated @RequestBody CartUpdateDto dto, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    public ResponseEntity<Map<String, Object>> updateCartItemsQuantity(@Validated @RequestBody CartUpdateDto cartUpdateDto,
+                                                                       @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("장바구니 아이템 갯수 업데이트");
-        cartService.updateCart(dto);
+
+        cartService.updateCart(customUserDetails.getMemberId(), cartUpdateDto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "장바구니 아이템 제거 성공"));
     }
 
     @DeleteMapping("/{cartId}")
-    public ResponseEntity<Map<String, Object>> deleteCartItems(@PathVariable Long cartId, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    public ResponseEntity<Map<String, Object>> deleteCartItems(@PathVariable Long cartId,
+                                                               @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("장바구니 아이템 제거");
         cartService.deleteCartItem(customUserDetails.getMemberId(), cartId);
 

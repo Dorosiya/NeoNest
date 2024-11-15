@@ -25,11 +25,11 @@ public class Member extends BaseEntity {
 
     private String password;
 
+    private String name;
+
     private String email;
 
     private int age;
-
-    private String name;
 
     private String phoneNumber;
 
@@ -61,6 +61,24 @@ public class Member extends BaseEntity {
         this.email = email;
         this.age = age;
         this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.extraAddress = extraAddress;
+        this.postcode = postcode;
+    }
+
+    public void editMember(String name,
+                           String email,
+                           int age,
+                           String phoneNumber,
+                           String address,
+                           String detailAddress,
+                           String extraAddress,
+                           String postcode) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.detailAddress = detailAddress;

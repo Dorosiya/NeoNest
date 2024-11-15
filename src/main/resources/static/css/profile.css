@@ -39,6 +39,15 @@ h2 {
     font-weight: bold;
 }
 
+#edit-form .form-group .form-control {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#edit-form .form-group .form-control#age {
+    max-width: 100px;
+}
+
 .form-row .col .btn {
     margin: 0;
     padding: 8px 16px;
@@ -51,4 +60,8 @@ h2 {
 
 .input-group-append .btn {
     border-radius: 0;
+}
+
+#save-button, #cancel-button {
+    margin-right: 10px;
 }

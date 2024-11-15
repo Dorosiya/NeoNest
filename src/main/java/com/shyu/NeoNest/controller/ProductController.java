@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,25 +29,27 @@ public class ProductController {
 
     private final ProductService productService;
 
+    // 상품 등록
     @PostMapping("/products")
     public ResponseEntity<Map<String, Object>> registerProduct(@RequestParam("image") MultipartFile image,
-                                                               @RequestPart("product") ProductRegisterDto productDto) throws IOException {
+                                                               @Validated @RequestPart("product") ProductRegisterDto productDto) throws IOException {
 
         productService.saveProduct(image, productDto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "상품 등록 성공"));
     }
 
-    // 수정 시 쿼리
-    @PatchMapping("/edit/products")
-    public ResponseEntity<Map<String, Object>> editProduct(@RequestParam("image") MultipartFile image,
-                                                               @RequestPart("product") ProductRegisterDto productDto) throws IOException {
+    // 상품 수정
+    @PatchMapping("/products/{productId}")
+    public ResponseEntity<Map<String, Object>> editProduct(@PathVariable("productId") Long productId,
+                                                           @RequestParam(value = "image", required = false) MultipartFile image,
+                                                           @Validated @RequestPart("product") ProductEditDto productEditDto) throws IOException {
 
-        productService.saveProduct(image, productDto);
+        productService.editProduct(productId, image, productEditDto);
         return ResponseEntity.ok(Map.of("success", true, "message", "상품 수정 성공"));
     }
 
-    // 물품 조회
+    // 상품 조회
     @GetMapping("/products")
     public ResponseEntity<List<ProductDto>> getProducts(@RequestParam("category") String category,
                                                         @RequestParam("sort") String sortCond) {
@@ -80,16 +83,6 @@ public class ProductController {
     public ResponseEntity<EditProductDto> getAdminProduct(@PathVariable("productId") Long productId) {
         EditProductDto adminProduct = productService.getAdminProduct(productId);
         return new ResponseEntity<>(adminProduct, HttpStatus.OK);
-    }
-
-    @PatchMapping("/products/{productId}")
-    public ResponseEntity<Map<String, Object>> editProduct(
-            @PathVariable("productId") Long productId,
-            @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestPart("product") ProductEditDto productDto) throws IOException {
-
-        productService.editProduct(productId, image, productDto);
-        return ResponseEntity.ok(Map.of("success", true, "message", "상품 수정 성공"));
     }
 
 }

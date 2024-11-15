@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 public class OrderItemDto {
 
-    @NotEmpty
     private Long cartId;
 
     @NotEmpty

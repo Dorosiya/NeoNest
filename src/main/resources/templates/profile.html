@@ -14,6 +14,7 @@
     <div class="card-body">
       <p><strong>아이디:</strong> <span id="member-memberName">홍길동</span></p>
       <p><strong>이름:</strong> <span id="member-name">홍길동</span></p>
+      <p><strong>나이:</strong> <span id="member-age">30</span></p>
       <p><strong>이메일:</strong> <span id="member-email">hong@example.com</span></p>
       <p><strong>전화번호:</strong> <span id="member-phone">010-1234-5678</span></p>
       <p><strong>주소:</strong> <span id="member-address">서울특별시 강남구 테헤란로</span></p>
@@ -28,11 +29,15 @@
   <form id="user-form">
     <div class="form-group">
       <label for="member-memberName">닉네임</label>
-      <input type="text" class="form-control" id="memberName" value="gildong">
+      <input type="text" class="form-control" id="memberName" value="gildong" readonly>
     </div>
     <div class="form-group">
       <label for="name">이름</label>
       <input type="text" class="form-control" id="name" value="홍길동">
+    </div>
+    <div class="form-group">
+      <label for="age">나이</label>
+      <input type="number" class="form-control" id="age" value="30">
     </div>
     <div class="form-group">
       <label for="email">이메일</label>

@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/order-detail.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/order-detail.js" defer></script> <!-- JS 파일 분리 및 연결 -->
+    <script src="/js/order-detail.js" defer></script>
 </head>
 <body>
 
 <!-- 유틸리티 네비게이션 바 -->
 <nav class="utility-nav">
-    <a href="/signup">회원가입</a>
+    <a id="signup-link" href="/signup">회원가입</a>
+    <a id="logout-link" href="/logout" style="display:none;">로그아웃</a>
     <a id="login-link" href="/login">로그인</a>
     <a id="mypage-link" href="/mypage" style="display:none;">마이페이지</a>
     <a href="/cart">장바구니</a>
@@ -74,5 +75,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/auth.js"></script>
 </body>
 </html>

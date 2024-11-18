@@ -28,7 +28,9 @@ public class ReviewController {
     public ResponseEntity<Map<String, Object>> addReview(@Valid @RequestBody ReviewCreateDto reviewCreateDto,
                                          @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("리뷰 추가");
+
         Long memberId = customUserDetails.getMemberId();
+
         reviewService.addReview(memberId, reviewCreateDto.getProductId(), reviewCreateDto.getOrderUid(), reviewCreateDto);
 
         return new ResponseEntity<>(Map.of("message", "오더 수정 성공"), HttpStatus.OK);
@@ -41,6 +43,7 @@ public class ReviewController {
                                                                 @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
         log.info("주문 제품 리뷰 조회");
+
         Long memberId = customUserDetails.getMemberId();
 
         OrderProductReviewInfoDto orderProductReview = reviewService.findOrderProductReview(orderUid, productId, memberId);

@@ -69,8 +69,7 @@ public class OrderController {
 
     //어드민 페이지 오더 조회
     @GetMapping("/admin/orders")
-    public ResponseEntity<List<AdminOrderListDto>> getAdminOrders(@Validated @RequestBody AdminOrderFilterDto adminOrderFilterDto) {
-
+    public ResponseEntity<List<AdminOrderListDto>> getAdminOrders(@Validated @ModelAttribute AdminOrderFilterDto adminOrderFilterDto) {
         log.info("어드민 페이지 오더 조회");
 
         List<AdminOrderListDto> adminOrderListDto = orderService.findAdminOrderListDto(adminOrderFilterDto);

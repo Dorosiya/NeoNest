@@ -1,3 +1,4 @@
+/* product-detail.js */
 document.addEventListener('DOMContentLoaded', function () {
     const path = window.location.pathname;
     const parts = path.split('/');
@@ -5,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const wishlistButton = document.getElementById('wishlist-button');
     const cartButton = document.getElementById('add-to-cart');
+    const buyNowButton = document.getElementById('buy-now');
     const quantityInput = document.getElementById('quantity');
 
     fetchProductDetails(productId);
@@ -133,10 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const quantity = parseInt(quantityInput.value) || 1;
         const price = parseInt(document.getElementById('product-price').dataset.price) || 0;
 
-        /*const memberId = getMemberIdFromToken();*/
-
         const cartData = {
-            /*memberId: memberId,*/
             productId: parseInt(productId),
             price: price,
             quantity: quantity
@@ -153,6 +152,34 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // 즉시 구매 버튼 클릭 이벤트 핸들러
+    function buyNow() {
+        const quantity = parseInt(quantityInput.value) || 1;
+        const price = parseInt(document.getElementById('product-price').dataset.price) || 0;
+        const memberId = getMemberIdFromToken();
+
+        const orderData = {
+            memberId: memberId,
+            orderItems: [
+                {
+                    productId: parseInt(productId),
+                    quantity: quantity,
+                    price: price
+                }
+            ]
+        };
+
+        axios.post('/api/order', orderData)
+            .then(response => {
+                alert('주문이 성공적으로 생성되었습니다. 주문 번호: ' + response.data);
+                window.location.href = `/orders/${response.data}`;
+            })
+            .catch(error => {
+                alert('주문 생성 중 오류가 발생했습니다. 다시 시도해주세요.');
+                console.error('Error creating order:', error);
+            });
+    }
+
     // 찜하기 버튼 클릭 이벤트 추가
     if (wishlistButton) {
         wishlistButton.addEventListener('click', toggleWishlist);
@@ -163,11 +190,16 @@ document.addEventListener('DOMContentLoaded', function () {
         cartButton.addEventListener('click', addToCart);
     }
 
+    // 즉시 구매 버튼 클릭 이벤트 추가
+    if (buyNowButton) {
+        buyNowButton.addEventListener('click', buyNow);
+    }
+
     // 글로벌 함수로 등록
     window.updateQuantity = updateQuantity;
 
     // 쿠키에서 JWT를 가져오는 함수
-    /*function getJwtTokenFromCookie() {
+    function getJwtTokenFromCookie() {
         const name = "access=";
         const decodedCookie = decodeURIComponent(document.cookie);
         const ca = decodedCookie.split(';');
@@ -181,19 +213,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         return "";
-    }*/
+    }
 
     // JWT에서 memberId를 추출하는 함수
-    /*function getMemberIdFromToken() {
+    function getMemberIdFromToken() {
         const token = getJwtTokenFromCookie();
         if (!token) return null;
 
         const payload = parseJwt(token);
         return payload.memberId;
-    }*/
+    }
 
     // JWT를 파싱하는 함수
-    /*function parseJwt(token) {
+    function parseJwt(token) {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
@@ -201,5 +233,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }).join(''));
 
         return JSON.parse(jsonPayload);
-    }*/
+    }
 });

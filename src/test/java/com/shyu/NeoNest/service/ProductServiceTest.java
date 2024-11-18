@@ -69,7 +69,7 @@ class ProductServiceTest {
         // given
         Product newProduct = Product.builder()
                 .name("첨단마우스")
-                .price(10000L)
+                .originalPrice(10000L)
                 .stockQuantity(10)
                 .build();
 
@@ -81,7 +81,7 @@ class ProductServiceTest {
 
         // then
         Assertions.assertThat(findProduct.getName()).isEqualTo("첨단마우스");
-        Assertions.assertThat(findProduct.getPrice()).isEqualTo(10000L);
+        Assertions.assertThat(findProduct.getOriginalPrice()).isEqualTo(10000L);
         Assertions.assertThat(findProduct.getStockQuantity()).isEqualTo(10);
     }
 

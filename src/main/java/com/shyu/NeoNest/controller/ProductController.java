@@ -33,7 +33,6 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Map<String, Object>> registerProduct(@RequestParam("image") MultipartFile image,
                                                                @Validated @RequestPart("product") ProductRegisterDto productDto) throws IOException {
-
         productService.saveProduct(image, productDto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "상품 등록 성공"));
@@ -44,8 +43,8 @@ public class ProductController {
     public ResponseEntity<Map<String, Object>> editProduct(@PathVariable("productId") Long productId,
                                                            @RequestParam(value = "image", required = false) MultipartFile image,
                                                            @Validated @RequestPart("product") ProductEditDto productEditDto) throws IOException {
-
         productService.editProduct(productId, image, productEditDto);
+
         return ResponseEntity.ok(Map.of("success", true, "message", "상품 수정 성공"));
     }
 
@@ -54,6 +53,7 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> getProducts(@RequestParam("category") String category,
                                                         @RequestParam("sort") String sortCond) {
         List<ProductDto> products = productService.getProducts(category, sortCond);
+
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -61,6 +61,7 @@ public class ProductController {
     @GetMapping("/products/{productId}")
     public ResponseEntity<ProductDto> getProducts(@PathVariable("productId") Long productId) {
         ProductDto getProduct = productService.getProduct(productId);
+
         return new ResponseEntity<>(getProduct, HttpStatus.OK);
     }
 
@@ -68,6 +69,7 @@ public class ProductController {
     @ResponseBody
     @GetMapping("/products/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+
         return productService.getProductImage(filename);
     }
 
@@ -75,6 +77,7 @@ public class ProductController {
     @GetMapping("/admin/products")
     public ResponseEntity<List<AdminProductListDto>> getAdminProductListDto() {
         List<AdminProductListDto> adminProductList = productService.getAdminProductList();
+
         return new ResponseEntity<>(adminProductList, HttpStatus.OK);
     }
 
@@ -82,6 +85,7 @@ public class ProductController {
     @GetMapping("/admin/products/{productId}")
     public ResponseEntity<EditProductDto> getAdminProduct(@PathVariable("productId") Long productId) {
         EditProductDto adminProduct = productService.getAdminProduct(productId);
+
         return new ResponseEntity<>(adminProduct, HttpStatus.OK);
     }
 

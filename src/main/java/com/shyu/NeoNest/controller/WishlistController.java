@@ -27,7 +27,9 @@ public class WishlistController {
                                                            @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getMemberId();
+
         wishlistService.addToWishlist(memberId, wishlistAddDto.getProductId());
+
         return new ResponseEntity<>(Map.of("success", true, "message", "찜 목록 추가 성공"), HttpStatus.OK);
     }
 
@@ -37,6 +39,7 @@ public class WishlistController {
                                                        @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getMemberId();
+
         InWishlistDto wishlist = wishlistService.findWishlist(memberId, productId);
 
         return new ResponseEntity<>(wishlist, HttpStatus.OK);
@@ -48,7 +51,9 @@ public class WishlistController {
                                                               @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getMemberId();
+
         wishlistService.removeFromWishlist(memberId, productId);
+
         return new ResponseEntity<>(Map.of("success", true, "message", "찜 목록 삭제 성공"), HttpStatus.OK);
     }
 

@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ViewController {
 
-    /*@Value("${spring.portOne.impCode}")
-    private String impCode;*/
-
     @GetMapping("/signup")
     public String signupPage() {
         return "signup";

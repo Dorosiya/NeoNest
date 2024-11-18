@@ -28,6 +28,7 @@ public class MemberController {
     @PostMapping("/member")
     public ResponseEntity<Map<String, Object>> signupMember(@Validated @RequestBody SignupDto signupDto) {
         log.info("회원가입 시작");
+
         memberService.singupMember(signupDto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "회원가입 성공"));
@@ -37,6 +38,7 @@ public class MemberController {
     @GetMapping("/member")
     public ResponseEntity<MemberDto> getMember(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("회원조회 시작");
+
         MemberDto memberDto = memberService.getMemberDto(customUserDetails.getUsername());
 
         return new ResponseEntity<>(memberDto, HttpStatus.OK);
@@ -47,6 +49,7 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> editMember(@Validated @RequestBody EditMemberDto editMemberDto,
                                                           @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("회원수정 시작");
+
         memberService.editMember(editMemberDto, customUserDetails.getUsername());
 
         return new ResponseEntity<>(Map.of("success", true, "message", "회원 정보 수정 성공"), HttpStatus.OK);
@@ -56,6 +59,7 @@ public class MemberController {
     @GetMapping("/member/info")
     public ResponseEntity<MemberInfoDto> getMemberInfo(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         log.info("로그인 식별 시작");
+
         MemberInfoDto memberInfo = memberService.getMemberInfo(customUserDetails.getUsername());
 
         return new ResponseEntity<>(memberInfo, HttpStatus.OK);

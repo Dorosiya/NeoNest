@@ -27,7 +27,6 @@ public class CartController {
     @PostMapping
     public ResponseEntity<Map<String, Object>> getCartsDto(@RequestBody CartCreateDto cartCreateDto,
                                                            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
-
         log.info("장바구니 아이템 생성");
 
         Long memberId = customUserDetails.getMemberId();

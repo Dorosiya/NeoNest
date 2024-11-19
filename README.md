@@ -225,7 +225,7 @@
     - phoneNumber (String, required): 결제자 핸드폰 번호
     - postcode (String, required): 결제자 우편 번호
     - address (String, required): 결제자 주소
-    - deliveryRequest (String, required): 배송 요청 코드
+    - deliveryRequest (String, required): 요청사항
     - paymentItems (List<PaymentItemDto>, required): 결제 상품 DTO
 
 결제 정보 가져오기
@@ -309,6 +309,13 @@
 - Method: `GET`
 - Description: 상품을 찜 목록에서 제거 합니다.
 - PathVariable:
+  - productId (Long, required): 상품 ID 
+
+마이페이지 대시보드
+- URL: `/api/mypage/summary`
+- Method: `GET`
+- Description: 마이페이지 대시보드의 
+- PathVariable:
   - productId (Long, required): 상품 ID
 
 </details>
@@ -334,9 +341,9 @@
   - 9
 - 마이페이지 주문 내역 페이지
   - 10
-- 주문 확인 페이지
-  - 11
 - 주문 상세 보기 페이지
+  - 11
+- 관리자 상품 등록 페이지
   - 12
 - 관리자 상품 관리 페이지
   - 13
@@ -348,3 +355,5 @@
   - 16
 - 리뷰 작성 페이지
   - 17
+
+

@@ -112,7 +112,7 @@ public class PaymentService {
                     .order(order)
                     .recipientName(request.getRecipientName())
                     .phoneNumber(request.getPhoneNumber())
-                    .postCode(request.getPostcode())
+                    .postcode(request.getPostcode())
                     .address(request.getAddress())
                     .deliveryRequest(request.getDeliveryRequest())
                     .status(DeliveryStatus.READY)

@@ -44,7 +44,8 @@
 - **Iamport(포트 원)**: 결제 처리 서비스
 
 ## ERD
-업로드 예정
+- ![NeoNest 2024-11-19](https://github.com/user-attachments/assets/e96dc3f9-316d-4c59-8cd5-101b3e78e757)
+
 
 ## API 문서
 <details markdown="1">
@@ -322,38 +323,55 @@
 
 ## 주요 화면
 - 회원 가입 페이지
-  - 1
+  - ![1  회원가입 페이지](https://github.com/user-attachments/assets/428efab0-042e-451e-b4c8-cfd4108b0889)
+
 - 로그인 화면 페이지
-  - 2
+  - ![2  로그인 페이지](https://github.com/user-attachments/assets/eb7c8d53-d17e-4a1b-8c5a-887dcf3ecf90)
+
 - 마이 페이지
-  - 3
+  - ![3  마이페이지](https://github.com/user-attachments/assets/0434dc66-70c3-4c97-9aab-6be287313b9d)
+
 - 메인화면 페이지
-  - 4
+  - ![4  메인화면 페이지](https://github.com/user-attachments/assets/0e89c64e-bf2a-416c-8fde-2f163443f3a1)
+
 - 상품 목록 페이지
-  - 5
+  - ![5  상품 목록 페이지](https://github.com/user-attachments/assets/fa49599e-b426-4736-adbb-bde1f4ec1730)
+
 - 상품 상세 페이지
-  - 6
+  - ![6  상품 상세 페이지](https://github.com/user-attachments/assets/e4cd318b-8b15-422f-8a3c-4caac693a876)
+
 - 장바구니 페이지
-  - 7
+  - ![7  장바구니 페이지](https://github.com/user-attachments/assets/bf9f0ea7-51e4-41be-9828-51b4647b7f77)
+
 - 주문 페이지
-  - 8
+  - ![8  주문 페이지](https://github.com/user-attachments/assets/08794ee4-7e76-4a43-9a3e-96aee55ec7c8)
+
 - 결제 성공 페이지
-  - 9
+  - ![9  결제 성공 페이지](https://github.com/user-attachments/assets/6efa3aff-64d6-41db-98b2-0c244a8c5b6b)
+
 - 마이페이지 주문 내역 페이지
-  - 10
+  - ![10  마이페이지 주문 내역 페이지](https://github.com/user-attachments/assets/89b485de-a989-437b-9c9f-9dd22050a88f)
+
 - 주문 상세 보기 페이지
-  - 11
+  - ![11  주문 상세 보기 페이지](https://github.com/user-attachments/assets/f929b09c-1d56-4b98-bc11-f567abdb5a3d)
+
 - 관리자 상품 등록 페이지
-  - 12
+  - ![12  관리자 상품 등록 페이지](https://github.com/user-attachments/assets/0c6be0ae-b518-4118-877d-91f8c3f8f9bb)
+
 - 관리자 상품 관리 페이지
-  - 13
+  - ![13  관리자 상품 관리 페이지](https://github.com/user-attachments/assets/6de83fd1-0e1b-483b-989d-145daed172c8)
+
 - 관리자 상품 관리 수정 페이지
-  - 14
+  - ![14  관리자 상품 수정 페이지](https://github.com/user-attachments/assets/06f776a9-a0fb-45d3-9834-87f9bd362f82)
+
 - 관리자 주문 관리 페이지
-  - 15
+  - ![15  관리자 주문 관리 페이지](https://github.com/user-attachments/assets/d9579734-8734-472a-b8f5-e9fba5a2d45c)
+
 - 관리자 주문 상세 보기 페이지
-  - 16
+  - ![16  관리자 주문 상세 보기 페이지](https://github.com/user-attachments/assets/5af94a39-21ce-4bc4-b5a5-bfb1041d7c39)
+
 - 리뷰 작성 페이지
-  - 17
+  - ![17  리뷰 작성 페이지](https://github.com/user-attachments/assets/a04c99ca-e7fd-4252-a454-2179d396ff97)
+
 
 

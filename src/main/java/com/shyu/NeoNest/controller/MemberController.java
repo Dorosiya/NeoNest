@@ -31,7 +31,7 @@ public class MemberController {
 
         memberService.singupMember(signupDto);
 
-        return ResponseEntity.ok(Map.of("success", true, "message", "회원가입 성공"));
+        return new ResponseEntity<>(Map.of("success", true, "message", "회원가입 성공"), HttpStatus.CREATED);
     }
 
     // 회원 조회
